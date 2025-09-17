@@ -3,5 +3,5 @@ services:
     name: bloodbankmanagement
     env: python
     plan: free
-    buildCommand: "pip install -r requirements.txt && python manage.py migrate"
+    buildCommand: "pip install -r requirements.txt && python manage.py migrate && python manage.py create_admin"
     startCommand: "gunicorn bloodbankmanagement.wsgi:application"
