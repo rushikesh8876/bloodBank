@@ -3,5 +3,5 @@ services:
     name: bloodbankmanagement
     env: python
     plan: free
-    buildCommand: "pip install -r requirements.txt && python manage.py migrate && python manage.py create_admin"
+    buildCommand: 'pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate && python -c "import os; import django; os.environ.setdefault(\"DJANGO_SETTINGS_MODULE\", \"bloodbankmanagement.settings\"); django.setup(); from django.contrib.auth.models import User; User.objects.create_superuser(\"admin\", \"admin@bloodbank.com\", \"bloodbank123\") if not User.objects.filter(username=\"admin\").exists() else print(\"Admin user already exists\")"'
     startCommand: "gunicorn bloodbankmanagement.wsgi:application"
